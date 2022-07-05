@@ -3,6 +3,7 @@
 #include <ctime>
 #include <string>
 #include <cctype>
+#include <cstring>  
 
 using namespace std;
 
@@ -28,3 +29,61 @@ bool compare(string str1, string str2) {
         return false;
     return true;    
 }
+
+
+bool startsWith(string str, string prefix) {
+    str = toLower(str);
+    prefix = toLower(prefix);
+    return str.rfind(prefix, 0) == 0;
+}
+
+string* split(string str, char seperator)  
+{  
+    string *strings = new string[4];
+
+    int currIndex = 0, i = 0;  
+    int startIndex = 0, endIndex = 0;  
+    while (i <= (str.length()))  
+    {  
+        if (str[i] == seperator || i == str.length())  
+        {  
+            endIndex = i;  
+            string subStr = "";  
+            subStr.append(str, startIndex, endIndex - startIndex);  
+            strings[currIndex] = subStr;  
+            currIndex += 1;  
+            startIndex = endIndex + 1;  
+        }  
+        i++;  
+    }
+
+    return strings;     
+}  
+
+
+
+int getStringArrayLen(string* strArr) {
+    int i = 0;
+    while (strArr[i] != "") {
+        i++;
+    }
+    return i;
+}
+
+bool validateCommandInput(string* splits, string command) {
+    if (command == "ADD") {
+       return getStringArrayLen(splits) == 2;
+    } else if (command == "REMOVE") {
+        return getStringArrayLen(splits) == 2;
+    } else if (command == "LIST") {
+        return getStringArrayLen(splits) == 1;
+    } else if (command == "HELP") {
+        return getStringArrayLen(splits) == 1;
+    } else if (command == "EXIT") {
+        return getStringArrayLen(splits) == 1;
+    } else {
+        return false;
+    }
+}
+
+

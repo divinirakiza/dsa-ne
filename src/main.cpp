@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "utils.cpp"
-#include "operations.h"
 #include "menu-handlers.cpp"
 
 using namespace std;
@@ -17,31 +16,38 @@ int main() {
     while (true) {
         cout << "> ";
         getline(cin, command);
-        cout << "You wrote " << command << endl;
 
-        if (compare(command, HELP)) {
+        if (compare(command, "HELP")) {
             handleHelpCommand();
-        } else if (compare(command, EXIT)) {
+        } else if (compare(command, "EXIT")) {
             handleExitCommand();
         }
-        else if (compare(command, EXIT)) {
-            
+        else if (startsWith(command, "ADD")) {
+            string* args = split(command, ' ');
+            if (!validateCommandInput(args, "ADD")) {
+                cout << "Invalid command arguments provided. Type 'help' for more information." << endl;
+            } else {
+                handleAddLocationCommand(args);
+            }
+            cout << "Saved" << endl;
         }
-        else if (compare(command, EXIT)) {
-
-        }
-        else if (compare(command, EXIT)) {
-
-        }
-        else if (compare(command, EXIT)) {
-
-        }
-        else if (compare(command, EXIT)) {
+        else if (compare(command, "ADD")) {
 
         }
+        else if (compare(command, "ADD")) {
 
-        else if (compare(command, EXIT)) {
+        }
+        else if (compare(command, "ADD")) {
 
+        }
+        else if (compare(command, "ADD")) {
+
+        }
+
+        else if (compare(command, "ADD")) {
+
+        } else {
+            cout << "Command doesn't exist, Trying >help, for help." << endl;
         }
     }
      

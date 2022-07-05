@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <ctime>
-
+#include "models/Location.h"
 using namespace std;
 
 
@@ -39,8 +39,9 @@ void handleExitCommand() {
     cout << "Closing the system" << endl;
 }
 
-void handleAddLocationCommand() {
-    cout << "Closing the system" << endl;
+void handleAddLocationCommand(string* args) {
+    Location location = Location(args[1]);
+    cout << "Location " << location.getName() << " is succcessfully added" << endl;
 }
 
 
