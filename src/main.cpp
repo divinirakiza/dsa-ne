@@ -2,6 +2,7 @@
 #include <string>
 #include "utils.cpp"
 #include "operations.h"
+#include "menu-handlers.cpp"
 
 using namespace std;
 
@@ -19,7 +20,28 @@ int main() {
         cout << "You wrote " << command << endl;
 
         if (compare(command, HELP)) {
-            printMenu();
+            handleHelpCommand();
+        } else if (compare(command, EXIT)) {
+            handleExitCommand();
+        }
+        else if (compare(command, EXIT)) {
+            
+        }
+        else if (compare(command, EXIT)) {
+
+        }
+        else if (compare(command, EXIT)) {
+
+        }
+        else if (compare(command, EXIT)) {
+
+        }
+        else if (compare(command, EXIT)) {
+
+        }
+
+        else if (compare(command, EXIT)) {
+
         }
     }
      
