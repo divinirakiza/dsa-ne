@@ -88,6 +88,8 @@ bool validateCommandInput(string* splits, string command) {
         return getStringArrayLen(splits) == 2;
     } else if (command == "WHERE") {
         return getStringArrayLen(splits) == 2;
+    } else if (command == "CASES") {
+        return getStringArrayLen(splits) == 2 || getStringArrayLen(splits) == 3;
     }
     else if (command == "HELP") {
         return getStringArrayLen(splits) == 1;

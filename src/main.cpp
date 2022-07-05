@@ -49,7 +49,14 @@ int main() {
             if (!validateCommandInput(args, "LIST")) {
                 cout << "Invalid command arguments provided. Type 'help' for more information." << endl;
             } else {
-                handleListLocationsCommand(args);
+                if (compare(args[1], "LOCATIONS")) {
+                    handleListLocationsCommand(args);
+                } else if (compare(args[1], "DISEASES")) {
+                    handleListDiseasesCommand(args);
+                } else {
+                    cout << "Invalid command arguments provided. Type 'help' for more information." << endl;
+                }
+                
             }
         }
    
@@ -62,17 +69,24 @@ int main() {
             }
         }
    
-        else if (compare(command, "ADD")) {
-
-        }
-
-        else if (compare(command, "ADD")) {
+        else if (startsWith(command, "CASES")) {
+            string* args = split(command, ' ');
+            if (!validateCommandInput(args, "CASES")) {
+                cout << "Invalid command arguments provided. Type 'help' for more information." << endl;
+            } else {
+                if (getStringArrayLen(args) == 2) {
+                    handleTotalCasesOfDiseaseCommand(args);
+                } else if (getStringArrayLen(args) == 3) {
+                    handleCasesOfDiseaseInLocationCommand(args);
+                }
+            }
         }
 
         else if (compare(command, "EXIT")) {
             handleExitCommand();
         }
          else {
+
             cout << "Command doesn't exist, Trying >help, for help." << endl;
         }
     }

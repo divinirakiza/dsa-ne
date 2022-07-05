@@ -69,15 +69,19 @@ void handleRecordDiseaseAndCasesCommand(string* args) {
 }
 
 void handleListLocationsCommand(string* args) {
-    if (compare(args[1], "locations")) {
-        for (Location location : Location::getAll()) {
-            cout << location.getName() << endl;
-        }
-    }
-    else {
-        cout << "invalid argument" << endl;
+    for (Location location : Location::getAll()) {
+        cout << location.getName() << endl;
     }
 }
+
+
+
+void handleListDiseasesCommand(string* args) {
+    for (Disease disease : Disease::getAll()) {
+        cout << disease.getName() << endl;
+    }
+}
+
 
 void handleWhereDiseaseCommand(string* args) {
     Disease disease = Disease::findByName(args[1]);
@@ -91,11 +95,32 @@ void handleWhereDiseaseCommand(string* args) {
     }
 }
 
-void handleDiseaseCasesCommand() {
+void handleCasesOfDiseaseInLocationCommand(string* args) {
+    Location location = Location::findByName(args[1]);
+    if (!compare(location.getName(), "")) {
+        Disease disease = Disease::findByName(args[2]);
 
+        if (!compare(disease.getName(), "")) {
+            Disease diseaseInLocation = Disease::findByDiseaseAndLocation(disease, location);
+            if (!compare(diseaseInLocation.getName(), "")) {
+                cout << "Cases of " << diseaseInLocation.getName() << " at " << location.getName() << " are " << diseaseInLocation.getCases() << endl;
+            } else {
+                cout << "Disease was not found in location" << endl;
+            }
+        } else {
+            cout << "Disease was not found" << endl;
+        }
+    } else {
+        cout << "Location was not found" << endl;
+    }
 }
 
 
-void handleTotalDiseaseCasesCommand() {
-
+void handleTotalCasesOfDiseaseCommand(string* args) {
+    Disease disease = Disease::findByName(args[1]);
+    if (!compare(disease.getName(), "")) {
+        cout << "Total cases of '" << disease.getName() << "' = " << disease.getCases() << endl;
+    } else {
+        cout << "Disease was not found" << endl;
+    }
 }

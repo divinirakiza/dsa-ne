@@ -55,12 +55,14 @@ class Disease {
         Disease(int locationId, string name, int cases) {
             this->id = this->generateID();
             this->locationId = locationId;
-            this->name = name;
+            this->name = toUpper(name);
             this->cases = cases;
         }
         Disease (string line, int readFile) {
             this->id = stoi(this->extractor(line, "id"));
             this->name = this->extractor(line, "name");
+            this->locationId = stoi(this->extractor(line, "locationId"));
+            this->cases = stoi(this->extractor(line, "cases"));
         }
         
         void save() {
@@ -71,8 +73,12 @@ class Disease {
 
         int getId() { return this->id; }
         void setId(int id) { this->id = id; }
-        string getName() { return this->name; }
+        string getName() { return toUpper(this->name); }
         void setName(string name) { this->name = name; }
+        int getLocationId() { return this->locationId; }
+        void setLocationId(int locationId) { this->locationId = locationId; }
+        int getCases() { return this->cases; }
+        void setCases(int locationId) { this->cases = cases; }
 
         static vector<Disease> getAll() {
             vector<Disease> diseases;
@@ -96,8 +102,7 @@ class Disease {
             while (inFile >> line) {
                 string name = _static_disease.extractor(line, "name");
                 if (compare(name, value)) {
-                    disease.setId(stoi(_static_disease.extractor(line, "id")));
-                    disease.setName(_static_disease.extractor(line, "name"));
+                    disease = Disease(line, 1);
                 }
             }
 
@@ -119,9 +124,28 @@ class Disease {
             return locationIds;
         }
 
+
+        static Disease findByDiseaseAndLocation(Disease _disease, Location location) {
+            ifstream inFile(Disease::FILENAME);
+            Disease disease;
+            string line;
+
+            Disease _static_disease;
+            while (inFile >> line) {
+                int _locationId = stoi(_static_disease.extractor(line, "locationId"));
+                int _diseaseId = stoi(_static_disease.extractor(line, "id"));
+
+                if (_locationId == location.getId() && _diseaseId == _disease.getId()) {
+                    disease = Disease(line, 1);
+                }
+            }
+
+            return disease;
+        }
+
+        
         void remove() {
             int line = findPositionByName(this->name);
-            cout << "On line " << line << endl;
 
             ofstream outFile(Disease::FILENAME);
             vector<Disease> diseases = Disease::getAll();

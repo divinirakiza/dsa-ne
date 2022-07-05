@@ -116,8 +116,7 @@ class Location {
 
         void remove() {
             int line = findPositionByName(this->name);
-            cout << "On line " << line << endl;
-            
+   
             vector<Location> locations = Location::getAll();
 
             ofstream outFile(Location::FILENAME);
