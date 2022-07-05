@@ -39,7 +39,7 @@ bool startsWith(string str, string prefix) {
 
 string* split(string str, char seperator)  
 {  
-    string *strings = new string[4];
+    string *strings = new string[8];
 
     int currIndex = 0, i = 0;  
     int startIndex = 0, endIndex = 0;  
@@ -73,10 +73,13 @@ int getStringArrayLen(string* strArr) {
 bool validateCommandInput(string* splits, string command) {
     if (command == "ADD") {
        return getStringArrayLen(splits) == 2;
-    } else if (command == "REMOVE") {
+    } else if (command == "DELETE") {
         return getStringArrayLen(splits) == 2;
+    }  else if (command == "RECORD") {
+        cout << getStringArrayLen(splits) << endl;
+        return getStringArrayLen(splits) == 4;
     } else if (command == "LIST") {
-        return getStringArrayLen(splits) == 1;
+        return getStringArrayLen(splits) == 2;
     } else if (command == "HELP") {
         return getStringArrayLen(splits) == 1;
     } else if (command == "EXIT") {

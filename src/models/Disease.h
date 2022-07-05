@@ -6,13 +6,17 @@
 
 using namespace std;
 
-class Location {
+class Disease {
     private:
         int id;
         string name;
+        int cases;
+        int locationId;
+
         int generateID() {
-            return countRecords(Location::FILENAME) + 1;
+            return countRecords(Disease::FILENAME) + 1;
         }
+
         string extractor(string line, string prop) {
             size_t found = line.find(prop);
 
@@ -28,7 +32,7 @@ class Location {
         }
 
         int findPositionByName(string value) {
-            ifstream inFile(Location::FILENAME);
+            ifstream inFile(Disease::FILENAME);
             string line;
             int i =  0;
             while (inFile >> line) {
@@ -44,20 +48,22 @@ class Location {
     public:
         static const string FILENAME;
 
-        Location(){};
+        Disease(){};
         
-        Location(string name) {
+        Disease(int locationId, string name, int cases) {
             this->id = this->generateID();
+            this->locationId = locationId;
             this->name = name;
+            this->cases = cases;
         }
-        Location (string line, int readFile) {
+        Disease (string line, int readFile) {
             this->id = stoi(this->extractor(line, "id"));
             this->name = this->extractor(line, "name");
         }
         
         void save() {
-            ofstream outFile(Location::FILENAME, ios::app);
-            outFile << "id:" << this->id << "|" << "name:" << this->name << "|" <<  endl;
+            ofstream outFile(Disease::FILENAME, ios::app);
+            outFile << "id:" << this->id << "|" << "locationId:" << this->locationId << "|" << "name:" << this->name << "|" << "cases:" << this-> cases << endl;
             outFile.close();
         }
 
@@ -66,46 +72,44 @@ class Location {
         string getName() { return this->name; }
         void setName(string name) { this->name = name; }
 
-        static vector<Location> getAll() {
-            vector<Location> locations;
-            ifstream inFile(Location::FILENAME);
+        static vector<Disease> getAll() {
+            vector<Disease> diseases;
+            ifstream inFile(Disease::FILENAME);
             string line;
             while (inFile >> line) {
-                Location location = Location(line, 1);
-                locations.push_back(location);
+                Disease disease = Disease(line, 1);
+                diseases.push_back(disease);
             }
-            return locations;
+            return diseases;
         }
    
 
-        static Location findByName(string value) {
-            ifstream inFile(Location::FILENAME);
-            Location location;
+        static Disease findByName(string value) {
+            ifstream inFile(Disease::FILENAME);
+            Disease disease;
             string line;
 
-            Location _static_location;
+            Disease _static_disease;
             while (inFile >> line) {
-                string name = _static_location.extractor(line, "name");
+                string name = _static_disease.extractor(line, "name");
                 if (compare(name, value)) {
-                    location.setId(stoi(_static_location.extractor(line, "id")));
-                    location.setName(_static_location.extractor(line, "name"));
+                    disease.setId(stoi(_static_disease.extractor(line, "id")));
+                    disease.setName(_static_disease.extractor(line, "name"));
                 }
             }
 
-            return location;
+            return disease;
         }
 
         void remove() {
             int line = findPositionByName(this->name);
             cout << "On line " << line << endl;
-            
-            vector<Location> locations = Location::getAll();
 
-            ofstream outFile(Location::FILENAME);
-
-            for (int i = 0; i < locations.size(); i++) {
+            ofstream outFile(Disease::FILENAME);
+            vector<Disease> diseases = Disease::getAll();
+            for (int i = 0; i < diseases.size(); i++) {
                 if (i != line) {
-                    outFile << "id:" << locations[i].getId() << "|" << "name:" << locations[i].getName() << "|" <<  endl;
+                    outFile << "id:" << diseases[i].getId() << "|" << "name:" << diseases[i].getName() << "|" <<  endl;
                 }
             }
         }
@@ -114,4 +118,4 @@ class Location {
         
 };
 
-const string Location::FILENAME = "src/data/locations.txt";
+const string Disease::FILENAME = "src/data/diseases.txt";

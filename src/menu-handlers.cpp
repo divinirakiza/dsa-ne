@@ -1,7 +1,11 @@
 #include <iostream>
 #include <iomanip>
 #include <ctime>
+#include "files/file-operations.h"
+#include "utils.cpp"
 #include "models/Location.h"
+#include "models/Disease.h"
+
 using namespace std;
 
 
@@ -45,26 +49,42 @@ void handleAddLocationCommand(string* args) {
     cout << "Location " << location.getName() << " is succcessfully added" << endl;
 }
 
-
-void handleDeleteLocationCommand() {
-    cout << "Closing the system" << endl;
+void handleDeleteLocationCommand(string* args) {
+    Location location = Location::findByName(args[1]);
+    if (compare(location.getName(), "")) {
+        cout << "Location was not found" << endl;
+    } else {
+        location.remove();
+    }
 }
 
-void handleRecordDiseaseAndCasesCommand() {
-    cout << "Closing the system" << endl;
+void handleRecordDiseaseAndCasesCommand(string* args) {
+     Location location = Location::findByName(args[1]);
+    if (!compare(location.getName(), "")) {
+        Disease disease = Disease(location.getId(), args[2], stoi(args[3]));
+        disease.save();
+    } else {
+        cout << "Location doesn't exist" << endl;
+    }
 }
 
-void handleListLocationsCommand() {
-    cout << "Closing the system" << endl;
+void handleListLocationsCommand(string* args) {
+    if (compare(args[1], "locations")) {
+        Location::getAll();
+    }
+    else {
+        cout << "invalid argument" << endl;
+    }
 }
 
-void handleWhereDiseaseCommand() {
+void handleWhereDiseaseCommand(string* args) {
     cout << "Closing the system" << endl;
 }
 
 void handleDiseaseCasesCommand() {
 
 }
+
 
 void handleTotalDiseaseCasesCommand() {
 

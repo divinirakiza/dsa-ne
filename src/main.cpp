@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include "utils.cpp"
 #include "menu-handlers.cpp"
 
 using namespace std;
@@ -19,8 +18,6 @@ int main() {
 
         if (compare(command, "HELP")) {
             handleHelpCommand();
-        } else if (compare(command, "EXIT")) {
-            handleExitCommand();
         }
         else if (startsWith(command, "ADD")) {
             string* args = split(command, ' ');
@@ -29,24 +26,47 @@ int main() {
             } else {
                 handleAddLocationCommand(args);
             }
-            cout << "Saved" << endl;
         }
+        else if (startsWith(command, "DELETE")) {
+            string* args = split(command, ' ');
+            if (!validateCommandInput(args, "DELETE")) {
+                cout << "Invalid command arguments provided. Type 'help' for more information." << endl;
+            } else {
+                handleDeleteLocationCommand(args);
+            }
+        }
+         else if (startsWith(command, "RECORD")) {
+            string* args = split(command, ' ');
+
+            if (!validateCommandInput(args, "RECORD")) {
+                cout << "Invalid command arguments provided. Type 'help' for more information." << endl;
+            } else {
+                handleRecordDiseaseAndCasesCommand(args);
+            }
+        }
+        else if (startsWith(command, "LIST")) {
+            string* args = split(command, ' ');
+            if (!validateCommandInput(args, "LIST")) {
+                cout << "Invalid command arguments provided. Type 'help' for more information." << endl;
+            } else {
+                handleListLocationsCommand(args);
+            }
+        }
+   
         else if (compare(command, "ADD")) {
 
         }
         else if (compare(command, "ADD")) {
 
         }
-        else if (compare(command, "ADD")) {
 
-        }
         else if (compare(command, "ADD")) {
-
         }
 
-        else if (compare(command, "ADD")) {
-
-        } else {
+        else if (compare(command, "EXIT")) {
+            handleExitCommand();
+        }
+         else {
             cout << "Command doesn't exist, Trying >help, for help." << endl;
         }
     }
