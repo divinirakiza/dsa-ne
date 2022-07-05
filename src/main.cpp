@@ -1,22 +1,29 @@
 #include <iostream>
+#include <string>
 #include "utils.cpp"
+#include "operations.h"
 
 using namespace std;
 
 
 
-void printHeader() {
-    cout << "================================================================" << endl;
-    cout << "*\tWelcome to Disease Casese Reporting System!\t*" << endl;
-    cout << "************************************************" << endl;
-    cout << "*\t\t\t\t*" << endl;
-    cout << "It is developed by 'Divin Irakiza' as practical *" << endl;
-    cout << "evaluation for the end of Year 3. *" << endl;
-    cout << "================================================================" << endl;
-}
-
 int main() {
-
+    printHeader();
     getTime();
+
+    string command;
+    cout << "Need a help ? Type 'help' then press Enter key." << endl;
+    while (true) {
+        cout << "> ";
+        getline(cin, command);
+        cout << "You wrote " << command << endl;
+
+        if (compare(command, HELP)) {
+            printMenu();
+        }
+    }
+     
     return 0;
 }
+
+
