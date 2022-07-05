@@ -70,7 +70,9 @@ void handleRecordDiseaseAndCasesCommand(string* args) {
 
 void handleListLocationsCommand(string* args) {
     if (compare(args[1], "locations")) {
-        Location::getAll();
+        for (Location location : Location::getAll()) {
+            cout << location.getName() << endl;
+        }
     }
     else {
         cout << "invalid argument" << endl;
@@ -78,7 +80,15 @@ void handleListLocationsCommand(string* args) {
 }
 
 void handleWhereDiseaseCommand(string* args) {
-    cout << "Closing the system" << endl;
+    Disease disease = Disease::findByName(args[1]);
+    if (!compare(disease.getName(), "")) {
+        for (int locationId: Disease::findLocationsByDisease(disease)) {
+            Location location = Location::findByID(locationId);
+            cout << "[" << toLower(location.getName()) << "]" << endl;
+        }
+    } else {
+        cout << "Disease was not found" << endl;
+    }
 }
 
 void handleDiseaseCasesCommand() {

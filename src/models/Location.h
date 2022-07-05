@@ -30,6 +30,7 @@ class Location {
         int findPositionByName(string value) {
             ifstream inFile(Location::FILENAME);
             string line;
+            value = toUpper(value);
             int i =  0;
             while (inFile >> line) {
                 string name = this->extractor(line, "name");
@@ -48,7 +49,7 @@ class Location {
         
         Location(string name) {
             this->id = this->generateID();
-            this->name = name;
+            this->name = toUpper(name);
         }
         Location (string line, int readFile) {
             this->id = stoi(this->extractor(line, "id"));
@@ -78,10 +79,28 @@ class Location {
         }
    
 
+        static Location findByID(int value) {
+            ifstream inFile(Location::FILENAME);
+            Location location;
+            string line;
+            Location _static_location;
+            while (inFile >> line) {
+                int id = stoi(_static_location.extractor(line, "id"));
+                if (value == id) {
+                    location.setId(stoi(_static_location.extractor(line, "id")));
+                    location.setName(_static_location.extractor(line, "name"));
+                }
+            }
+
+            return location;
+        }
+
         static Location findByName(string value) {
             ifstream inFile(Location::FILENAME);
             Location location;
             string line;
+            value = toUpper(value);
+
 
             Location _static_location;
             while (inFile >> line) {

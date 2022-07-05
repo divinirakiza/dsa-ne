@@ -1,4 +1,1 @@
-id:1|locationId:3|name:malaria|cases:23
-id:2|locationId:3|name:malaria|cases:24
-id:3|locationId:3|name:diarr|cases:23
-id:4|locationId:4|name:dsd|cases:32
+id:1|locationId:3|name:fever|cases:2

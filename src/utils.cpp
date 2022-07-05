@@ -21,6 +21,13 @@ string toLower(string str) {
   	return str;
 }
 
+string toUpper(string str) {
+	for (int i = 0; i < str.length(); i++){
+  		str[i] = toupper(str[i]);
+  	}
+  	return str;
+}
+
 bool compare(string str1, string str2) {
     str1 = toLower(str1);
     str2 = toLower(str2);
@@ -76,11 +83,13 @@ bool validateCommandInput(string* splits, string command) {
     } else if (command == "DELETE") {
         return getStringArrayLen(splits) == 2;
     }  else if (command == "RECORD") {
-        cout << getStringArrayLen(splits) << endl;
         return getStringArrayLen(splits) == 4;
     } else if (command == "LIST") {
         return getStringArrayLen(splits) == 2;
-    } else if (command == "HELP") {
+    } else if (command == "WHERE") {
+        return getStringArrayLen(splits) == 2;
+    }
+    else if (command == "HELP") {
         return getStringArrayLen(splits) == 1;
     } else if (command == "EXIT") {
         return getStringArrayLen(splits) == 1;

@@ -4,6 +4,7 @@
 #include <vector>
 
 
+
 using namespace std;
 
 class Disease {
@@ -34,6 +35,7 @@ class Disease {
         int findPositionByName(string value) {
             ifstream inFile(Disease::FILENAME);
             string line;
+            value = toUpper(value);
             int i =  0;
             while (inFile >> line) {
                 string name = this->extractor(line, "name");
@@ -88,6 +90,7 @@ class Disease {
             ifstream inFile(Disease::FILENAME);
             Disease disease;
             string line;
+            value = toUpper(value);
 
             Disease _static_disease;
             while (inFile >> line) {
@@ -99,6 +102,21 @@ class Disease {
             }
 
             return disease;
+        }
+
+        static vector<int> findLocationsByDisease(Disease disease) {
+            ifstream inFile(Disease::FILENAME);
+
+            vector<int> locationIds;
+            string line;
+
+            Disease _static_disease;
+            while (inFile >> line) {
+                int locationId = stoi(_static_disease.extractor(line, "locationId"));
+                locationIds.push_back(locationId);
+            }
+
+            return locationIds;
         }
 
         void remove() {

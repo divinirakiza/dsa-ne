@@ -1,0 +1,3 @@
+id:1|name:kigali|
+id:2|name:bugesera|
+id:3|name:BUGESERA|

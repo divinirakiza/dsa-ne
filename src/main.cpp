@@ -53,9 +53,15 @@ int main() {
             }
         }
    
-        else if (compare(command, "ADD")) {
-
+        else if (startsWith(command, "WHERE")) {
+            string* args = split(command, ' ');
+            if (!validateCommandInput(args, "WHERE")) {
+                cout << "Invalid command arguments provided. Type 'help' for more information." << endl;
+            } else {
+                handleWhereDiseaseCommand(args);
+            }
         }
+   
         else if (compare(command, "ADD")) {
 
         }
