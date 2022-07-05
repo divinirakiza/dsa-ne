@@ -1,1 +1,0 @@
-id:1|locationId:3|name:fever|cases:2

@@ -14,3 +14,5 @@ int countRecords(string FILENAME) {
         lines++;
     return lines;
 }
+
+

@@ -8,9 +8,16 @@
 using namespace std;
 
 void getTime() {
-    auto t = time(nullptr);
-    auto tm = *localtime(&t);
-    cout << put_time(&tm, "%d-%m-%Y %H-%M-%S") << endl;
+    time_t curr_time;
+	tm * curr_tm;
+	char date_time_string[150];
+	
+	time(&curr_time);
+	curr_tm = localtime(&curr_time);
+	
+	strftime(date_time_string, 50, "%a %b %d %H:%M:%S CAT %Y", curr_tm);
+
+    cout << "Starting Time: " << date_time_string  << endl;
 }
 
 

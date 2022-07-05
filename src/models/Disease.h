@@ -2,7 +2,9 @@
 #include <cstdlib>
 #include <fstream>
 #include <vector>
-
+#include <utility>
+#include <vector>
+#include <algorithm>
 
 
 using namespace std;
@@ -47,6 +49,8 @@ class Disease {
             return i;
         }
 
+
+
     public:
         static const string FILENAME;
 
@@ -88,6 +92,7 @@ class Disease {
                 Disease disease = Disease(line, 1);
                 diseases.push_back(disease);
             }
+
             return diseases;
         }
    
@@ -109,6 +114,22 @@ class Disease {
             return disease;
         }
 
+        static Disease findByID(int value) {
+            ifstream inFile(Disease::FILENAME);
+            Disease disease;
+            string line;
+
+            Disease _static_disease;
+            while (inFile >> line) {
+                int id = stoi(_static_disease.extractor(line, "id"));
+                if (id == value) {
+                    disease = Disease(line, 1);
+                }
+            }
+
+            return disease;
+        }
+
         static vector<int> findLocationsByDisease(Disease disease) {
             ifstream inFile(Disease::FILENAME);
 
@@ -118,10 +139,29 @@ class Disease {
             Disease _static_disease;
             while (inFile >> line) {
                 int locationId = stoi(_static_disease.extractor(line, "locationId"));
-                locationIds.push_back(locationId);
+                if (disease.getLocationId() == locationId)
+                    locationIds.push_back(locationId);
             }
 
             return locationIds;
+        }
+
+
+        static vector<int> findByLocation(Location location) {
+                    ifstream inFile(Disease::FILENAME);
+
+                    vector<int> diseaseIds;
+                    string line;
+
+                    Disease _static_disease;
+                    while (inFile >> line) {
+                        int locationId = stoi(_static_disease.extractor(line, "locationId"));
+                        int diseaseId = stoi(_static_disease.extractor(line, "id"));
+                        if (locationId == location.getId())
+                            diseaseIds.push_back(diseaseId);
+                    }
+
+                    return diseaseIds;
         }
 
 
@@ -147,8 +187,9 @@ class Disease {
         void remove() {
             int line = findPositionByName(this->name);
 
-            ofstream outFile(Disease::FILENAME);
             vector<Disease> diseases = Disease::getAll();
+
+            ofstream outFile(Disease::FILENAME);
             for (int i = 0; i < diseases.size(); i++) {
                 if (i != line) {
                     outFile << "id:" << diseases[i].getId() << "|" << "name:" << diseases[i].getName() << "|" <<  endl;

@@ -64,7 +64,7 @@ class Location {
 
         int getId() { return this->id; }
         void setId(int id) { this->id = id; }
-        string getName() { return this->name; }
+        string getName() { return toUpper(this->name); }
         void setName(string name) { this->name = name; }
 
         static vector<Location> getAll() {
@@ -87,8 +87,7 @@ class Location {
             while (inFile >> line) {
                 int id = stoi(_static_location.extractor(line, "id"));
                 if (value == id) {
-                    location.setId(stoi(_static_location.extractor(line, "id")));
-                    location.setName(_static_location.extractor(line, "name"));
+                    location = Location(line, 1);
                 }
             }
 
