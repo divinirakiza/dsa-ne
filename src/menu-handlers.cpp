@@ -86,8 +86,10 @@ void handleRecordDiseaseAndCasesCommand(string* args) {
 
 void handleListLocationsCommand(string* args) {
     vector<Location> locations = Location::getAll();
-    sort(locations.begin(), locations.end(), sortByLocations);
-    for (Location location : Location::getAll()) {
+
+    sort(locations.begin(), locations.end(), [] (Location &s1, Location &s2) {return s1.getName() < s2.getName(); });
+
+    for (Location location : locations) {
         cout << location.getName() << endl;
     }
 }
@@ -95,7 +97,11 @@ void handleListLocationsCommand(string* args) {
 
 
 void handleListDiseasesCommand(string* args) {
-    for (Disease disease : Disease::getAll()) {
+    vector<Disease> diseases = Disease::getAll();
+
+    sort(diseases.begin(), diseases.end(), [] (Disease &s1, Disease &s2) {return s1.getName() < s2.getName(); });
+
+    for (Disease disease : diseases) {
         cout << disease.getName() << endl;
     }
 }

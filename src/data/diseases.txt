@@ -1,0 +1,3 @@
+id:1|locationId:3|name:FEVER|cases:4
+id:2|locationId:3|name:GRIP|cases:3
+id:3|locationId:1|name:AGE|cases:4
