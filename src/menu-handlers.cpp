@@ -41,6 +41,7 @@ void handleExitCommand() {
 
 void handleAddLocationCommand(string* args) {
     Location location = Location(args[1]);
+    location.save();
     cout << "Location " << location.getName() << " is succcessfully added" << endl;
 }
 
